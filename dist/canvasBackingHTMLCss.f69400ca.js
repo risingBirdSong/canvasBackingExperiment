@@ -28285,7 +28285,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/hybrid.tsx":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/canvas.tsx":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -28330,53 +28330,67 @@ Object.defineProperty(exports, "__esModule", {
 
 var React = __importStar(require("react"));
 
-function rect(props) {
-  var ctx = props.ctx,
-      x = props.x,
-      y = props.y,
-      width = props.width,
-      height = props.height;
-  ctx.fillRect(x, y, width, height);
-}
-
-var Hybrid =
+var CanvasComponent =
 /** @class */
 function (_super) {
-  __extends(Hybrid, _super);
+  __extends(CanvasComponent, _super);
 
-  function Hybrid() {
+  function CanvasComponent() {
     return _super !== null && _super.apply(this, arguments) || this;
   }
 
-  Hybrid.prototype.componentDidMount = function () {
+  CanvasComponent.prototype.componentDidMount = function () {
     this.updateCanvas();
   };
 
-  Hybrid.prototype.componentDidUpdate = function () {
+  CanvasComponent.prototype.componentDidUpdate = function () {
     this.updateCanvas();
   };
 
-  Hybrid.prototype.updateCanvas = function () {
-    var ctx = this.refs.canvas.getContext("2d");
-    ctx.clearRect(0, 0, 300, 300); // draw children “components”
-
-    ctx.beginPath();
-    ctx.arc(50, 50, 50, 0, 2 * Math.PI);
-    ctx.fill();
+  CanvasComponent.prototype.updateCanvas = function () {
+    var canvas = this.refs.canvas;
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, 300, 300);
   };
 
-  Hybrid.prototype.render = function () {
+  CanvasComponent.prototype.render = function () {
     return React.createElement("canvas", {
       ref: "canvas",
-      width: 300,
-      height: 300
+      width: 600,
+      height: 400
     });
   };
 
-  return Hybrid;
+  return CanvasComponent;
 }(React.Component);
 
-exports.default = Hybrid;
+exports.default = CanvasComponent;
+},{"react":"node_modules/react/index.js"}],"components/foreground.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var Foreground = function Foreground() {
+  return React.createElement("div", null, React.createElement("p", {
+    className: "array"
+  }, "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"));
+};
+
+exports.default = Foreground;
 },{"react":"node_modules/react/index.js"}],"app.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -28402,14 +28416,16 @@ Object.defineProperty(exports, "__esModule", {
 
 var React = __importStar(require("react"));
 
-var hybrid_1 = __importDefault(require("./components/hybrid"));
+var canvas_1 = __importDefault(require("./components/canvas"));
+
+var foreground_1 = __importDefault(require("./components/foreground"));
 
 var App = function App() {
-  return React.createElement("div", null, React.createElement("h1", null, "hello from app"), React.createElement(hybrid_1.default, null));
+  return React.createElement("main", null, React.createElement(foreground_1.default, null), React.createElement(canvas_1.default, null));
 };
 
 exports.default = App;
-},{"react":"node_modules/react/index.js","./components/hybrid":"components/hybrid.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/canvas":"components/canvas.tsx","./components/foreground":"components/foreground.tsx"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -28467,7 +28483,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56786" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59100" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
