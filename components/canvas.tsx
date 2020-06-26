@@ -32,10 +32,11 @@ class CanvasComponent extends React.Component<canvasProps> {
     ctx.clearRect(0, 0, 300, 300);
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(this.props.startX, this.props.startY);
+    // ctx.lineTo(220, 40);
+    ctx.lineTo(this.props.startX - 340, this.props.startY);
     // ctx.lineTo(100, 100);
     // ctx.moveTo(this.props.startX, this.props.startY + 50);
-    ctx.lineTo(this.props.endX, this.props.endY);
+    ctx.lineTo(this.props.endX - 300, this.props.endY);
     ctx.stroke();
   }
   render() {

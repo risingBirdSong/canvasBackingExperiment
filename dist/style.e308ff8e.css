@@ -9,11 +9,12 @@ canvas {
 
 #foreground {
   position: absolute;
-  width: 810px;
-  height: 610px;
+  width: 802px;
+  height: 602px;
   border: 2px solid green;
   display: flex;
   justify-content: center;
+  /* align-items: center; */
 }
 
 /* .foreground {
@@ -22,7 +23,6 @@ canvas {
 } */
 
 .array {
-  position: absolute;
   font-size: 35px;
 }
 
