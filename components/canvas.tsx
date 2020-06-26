@@ -23,7 +23,8 @@ class CanvasComponent extends React.Component {
     //prettier-ignore
     let beginTextX = (middleWidth ) - textWidth / 2;
     let endTextX = middleWidth + textWidth / 2;
-    let offset = 10 * 4;
+    // numbers are pointed at by odd number multipliers, 1 through 9
+    let offset = (widthOfArrEle / 2) * 9;
 
     ctx.lineTo(beginTextX + offset, middleHeight);
     ctx.lineTo(middleWidth, middleHeight + 100);

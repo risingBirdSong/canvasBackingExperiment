@@ -28362,8 +28362,9 @@ function (_super) {
     var widthOfArrEle = textWidth / array.length; //prettier-ignore
 
     var beginTextX = middleWidth - textWidth / 2;
-    var endTextX = middleWidth + textWidth / 2;
-    var offset = 10 * 4;
+    var endTextX = middleWidth + textWidth / 2; // numbers are pointed at by odd number multipliers, 1 through 9
+
+    var offset = widthOfArrEle / 2 * 9;
     ctx.lineTo(beginTextX + offset, middleHeight);
     ctx.lineTo(middleWidth, middleHeight + 100);
     ctx.lineTo(endTextX - offset, middleHeight);
