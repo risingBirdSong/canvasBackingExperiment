@@ -28340,10 +28340,12 @@ function (_super) {
   }
 
   CanvasComponent.prototype.componentDidMount = function () {
+    console.log("from canvas :", this.props.startX);
     this.updateCanvas();
   };
 
   CanvasComponent.prototype.componentDidUpdate = function () {
+    console.log("from canvas after update:", this.props.startX);
     this.updateCanvas();
   };
 
@@ -28351,6 +28353,10 @@ function (_super) {
     var canvas = this.refs.canvas;
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, 300, 300);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(350, 250);
+    ctx.stroke();
   };
 
   CanvasComponent.prototype.render = function () {
@@ -28365,34 +28371,34 @@ function (_super) {
 }(React.Component);
 
 exports.default = CanvasComponent;
-},{"react":"node_modules/react/index.js"}],"components/foreground.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-  }
-  result["default"] = mod;
-  return result;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var React = __importStar(require("react"));
-
-var Foreground = function Foreground() {
-  return React.createElement("div", null, React.createElement("p", {
-    className: "array"
-  }, "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"));
-};
-
-exports.default = Foreground;
 },{"react":"node_modules/react/index.js"}],"app.tsx":[function(require,module,exports) {
 "use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
 
 var __importStar = this && this.__importStar || function (mod) {
   if (mod && mod.__esModule) return mod;
@@ -28418,14 +28424,57 @@ var React = __importStar(require("react"));
 
 var canvas_1 = __importDefault(require("./components/canvas"));
 
-var foreground_1 = __importDefault(require("./components/foreground"));
+var App =
+/** @class */
+function (_super) {
+  __extends(App, _super);
 
-var App = function App() {
-  return React.createElement("main", null, React.createElement(foreground_1.default, null), React.createElement(canvas_1.default, null));
-};
+  function App(props) {
+    var _this = _super.call(this, props) || this;
+
+    _this.startRef = React.createRef();
+    _this.endRef = React.createRef();
+    _this.state = {
+      startX: 0
+    };
+    return _this;
+  }
+
+  App.prototype.componentDidMount = function () {
+    var _this = this; // console.log("ref", this.startRef.current.getBoundingClientRect());
+    //@ts-ignore
+    // this.state.startX = this.startRef.current.getBoundingClientRect().x;
+
+
+    this.setState({
+      startX: this.startRef.current.getBoundingClientRect().x
+    }, function () {
+      console.log("current state x", _this.state.startX);
+    }); // this.startY = this.startRef.current.getBoundingClientRect().y;
+  };
+
+  App.prototype.render = function () {
+    return React.createElement("main", null, React.createElement("div", {
+      id: "foreground"
+    }, React.createElement("p", {
+      className: "array",
+      id: "arrayid"
+    }, React.createElement("span", {
+      ref: this.startRef,
+      id: "start"
+    }, "[1,"), " ", "2, 3, 4, 5, 6, 7, 8, 9,", " ", React.createElement("span", {
+      ref: this.endRef,
+      id: "end"
+    }, "10]"))), React.createElement(canvas_1.default, {
+      startX: this.state.startX
+    }));
+  };
+
+  return App;
+}(React.Component);
 
 exports.default = App;
-},{"react":"node_modules/react/index.js","./components/canvas":"components/canvas.tsx","./components/foreground":"components/foreground.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/canvas":"components/canvas.tsx"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
