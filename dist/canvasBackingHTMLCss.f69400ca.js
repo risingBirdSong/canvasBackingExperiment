@@ -28356,16 +28356,17 @@ function (_super) {
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.font = "italic 32px sans-serif";
-    var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    var array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     var text = array.toString();
     var textWidth = ctx.measureText(text).width;
     var widthOfArrEle = textWidth / array.length; //prettier-ignore
 
     var beginTextX = middleWidth - textWidth / 2;
     var endTextX = middleWidth + textWidth / 2;
-    var offset = 10;
-    ctx.lineTo(beginTextX, middleHeight);
-    ctx.bezierCurveTo(beginTextX + offset + textWidth / 2, middleHeight + 100, middleWidth, middleHeight + 100, endTextX - offset, middleHeight);
+    var offset = 10 * 4;
+    ctx.lineTo(beginTextX + offset, middleHeight);
+    ctx.lineTo(middleWidth, middleHeight + 100);
+    ctx.lineTo(endTextX - offset, middleHeight);
     console.log("width of ele", widthOfArrEle);
     ctx.fillText(text, middleWidth - textWidth / 2, middleHeight);
     ctx.stroke();
