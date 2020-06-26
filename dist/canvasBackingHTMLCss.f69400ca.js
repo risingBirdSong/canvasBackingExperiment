@@ -28350,20 +28350,24 @@ function (_super) {
   };
 
   CanvasComponent.prototype.updateCanvas = function () {
+    console.log("start x -->", this.props.startX, "start y -->", this.props.startY, "end x -->", this.props.endX, "end y -->", this.props.endY);
     var canvas = this.refs.canvas;
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, 300, 300);
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(350, 250);
+    ctx.lineTo(this.props.startX, this.props.startY); // ctx.lineTo(100, 100);
+    // ctx.moveTo(this.props.startX, this.props.startY + 50);
+
+    ctx.lineTo(this.props.endX, this.props.endY);
     ctx.stroke();
   };
 
   CanvasComponent.prototype.render = function () {
     return React.createElement("canvas", {
       ref: "canvas",
-      width: 600,
-      height: 400
+      width: 800,
+      height: 600
     });
   };
 
@@ -28435,22 +28439,28 @@ function (_super) {
     _this.startRef = React.createRef();
     _this.endRef = React.createRef();
     _this.state = {
-      startX: 0
+      startX: 0,
+      startY: 0,
+      endX: 0,
+      endY: 0
     };
     return _this;
   }
 
   App.prototype.componentDidMount = function () {
-    var _this = this; // console.log("ref", this.startRef.current.getBoundingClientRect());
-    //@ts-ignore
-    // this.state.startX = this.startRef.current.getBoundingClientRect().x;
-
+    var _this = this;
 
     this.setState({
-      startX: this.startRef.current.getBoundingClientRect().x
+      startX: this.startRef.current.getBoundingClientRect().x,
+      startY: this.startRef.current.getBoundingClientRect().y,
+      endX: this.endRef.current.getBoundingClientRect().x,
+      endY: this.endRef.current.getBoundingClientRect().y
     }, function () {
-      console.log("current state x", _this.state.startX);
-    }); // this.startY = this.startRef.current.getBoundingClientRect().y;
+      console.log("app start x", _this.state.startX);
+      console.log("app start y", _this.state.startX);
+      console.log("app end x", _this.state.endX);
+      console.log("app end y", _this.state.endY);
+    });
   };
 
   App.prototype.render = function () {
@@ -28466,7 +28476,10 @@ function (_super) {
       ref: this.endRef,
       id: "end"
     }, "10]"))), React.createElement(canvas_1.default, {
-      startX: this.state.startX
+      startX: this.state.startX,
+      startY: this.state.startY,
+      endX: this.state.endX,
+      endY: this.state.endY
     }));
   };
 

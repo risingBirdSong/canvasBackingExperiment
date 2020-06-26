@@ -5,6 +5,9 @@ import CanvasComponent from "./components/canvas";
 
 interface AppState {
   startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
 }
 
 class App extends React.Component<{}, AppState> {
@@ -18,20 +21,27 @@ class App extends React.Component<{}, AppState> {
     this.endRef = React.createRef();
     this.state = {
       startX: 0,
+      startY: 0,
+      endX: 0,
+      endY: 0,
     };
   }
 
   componentDidMount() {
-    // console.log("ref", this.startRef.current.getBoundingClientRect());
-    //@ts-ignore
-    // this.state.startX = this.startRef.current.getBoundingClientRect().x;
     this.setState(
-      { startX: this.startRef.current.getBoundingClientRect().x },
+      {
+        startX: this.startRef.current.getBoundingClientRect().x,
+        startY: this.startRef.current.getBoundingClientRect().y,
+        endX: this.endRef.current.getBoundingClientRect().x,
+        endY: this.endRef.current.getBoundingClientRect().y,
+      },
       () => {
-        console.log("current state x", this.state.startX);
+        console.log("app start x", this.state.startX);
+        console.log("app start y", this.state.startX);
+        console.log("app end x", this.state.endX);
+        console.log("app end y", this.state.endY);
       }
     );
-    // this.startY = this.startRef.current.getBoundingClientRect().y;
   }
 
   render() {
@@ -48,7 +58,12 @@ class App extends React.Component<{}, AppState> {
             </span>
           </p>
         </div>
-        <CanvasComponent startX={this.state.startX} />
+        <CanvasComponent
+          startX={this.state.startX}
+          startY={this.state.startY}
+          endX={this.state.endX}
+          endY={this.state.endY}
+        />
       </main>
     );
   }
