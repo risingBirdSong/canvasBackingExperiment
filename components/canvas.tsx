@@ -15,7 +15,7 @@ class CanvasComponent extends React.Component {
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.font = "italic 32px sans-serif";
-    const array = [1, 2, 3, 4, 5, 6, 7, 8];
+    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const text = array.toString();
     const textWidth = ctx.measureText(text).width;
     let widthOfArrEle = textWidth / array.length;
@@ -23,15 +23,15 @@ class CanvasComponent extends React.Component {
     //prettier-ignore
     let beginTextX = (middleWidth ) - textWidth / 2;
     let endTextX = middleWidth + textWidth / 2;
-    let beginOffset = 10;
-    let endOffset = 10;
-    ctx.lineTo(beginTextX + beginOffset, middleHeight);
+    let offset = 10;
+
+    ctx.lineTo(beginTextX, middleHeight);
     ctx.bezierCurveTo(
-      20 + beginTextX,
-      100 + middleHeight,
-      200 + beginTextX,
-      100 + middleHeight,
-      endTextX - endOffset,
+      beginTextX + offset + textWidth / 2,
+      middleHeight + 100,
+      middleWidth,
+      middleHeight + 100,
+      endTextX - offset,
       middleHeight
     );
     console.log("width of ele", widthOfArrEle);
@@ -39,7 +39,11 @@ class CanvasComponent extends React.Component {
     ctx.stroke();
   }
   render() {
-    return <canvas ref="canvas" width={800} height={600} />;
+    return (
+      <div>
+        <canvas ref="canvas" width={800} height={600} />;
+      </div>
+    );
   }
 }
 

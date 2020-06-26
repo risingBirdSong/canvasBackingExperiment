@@ -28356,28 +28356,27 @@ function (_super) {
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.font = "italic 32px sans-serif";
-    var array = [1, 2, 3, 4, 5, 6, 7, 8];
+    var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     var text = array.toString();
     var textWidth = ctx.measureText(text).width;
     var widthOfArrEle = textWidth / array.length; //prettier-ignore
 
     var beginTextX = middleWidth - textWidth / 2;
     var endTextX = middleWidth + textWidth / 2;
-    var beginOffset = 10;
-    var endOffset = 10;
-    ctx.lineTo(beginTextX + beginOffset, middleHeight);
-    ctx.bezierCurveTo(20 + beginTextX, 100 + middleHeight, 200 + beginTextX, 100 + middleHeight, endTextX - endOffset, middleHeight);
+    var offset = 10;
+    ctx.lineTo(beginTextX, middleHeight);
+    ctx.bezierCurveTo(beginTextX + offset + textWidth / 2, middleHeight + 100, middleWidth, middleHeight + 100, endTextX - offset, middleHeight);
     console.log("width of ele", widthOfArrEle);
     ctx.fillText(text, middleWidth - textWidth / 2, middleHeight);
     ctx.stroke();
   };
 
   CanvasComponent.prototype.render = function () {
-    return React.createElement("canvas", {
+    return React.createElement("div", null, React.createElement("canvas", {
       ref: "canvas",
       width: 800,
       height: 600
-    });
+    }), ";");
   };
 
   return CanvasComponent;
