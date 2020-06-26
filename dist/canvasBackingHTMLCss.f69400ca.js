@@ -28359,11 +28359,14 @@ function (_super) {
     var array = [1, 2, 3, 4, 5, 6, 7, 8];
     var text = array.toString();
     var textWidth = ctx.measureText(text).width;
-    var widthOfArrEle = textWidth / array.length;
+    var widthOfArrEle = textWidth / array.length; //prettier-ignore
+
     var beginTextX = middleWidth - textWidth / 2;
     var endTextX = middleWidth + textWidth / 2;
-    ctx.lineTo(middleWidth - textWidth / 2, middleHeight);
-    ctx.bezierCurveTo(20 + beginTextX, 100 + middleHeight, 200 + beginTextX, 100 + middleHeight, endTextX, middleHeight);
+    var beginOffset = 10;
+    var endOffset = 10;
+    ctx.lineTo(beginTextX + beginOffset, middleHeight);
+    ctx.bezierCurveTo(20 + beginTextX, 100 + middleHeight, 200 + beginTextX, 100 + middleHeight, endTextX - endOffset, middleHeight);
     console.log("width of ele", widthOfArrEle);
     ctx.fillText(text, middleWidth - textWidth / 2, middleHeight);
     ctx.stroke();

@@ -19,15 +19,19 @@ class CanvasComponent extends React.Component {
     const text = array.toString();
     const textWidth = ctx.measureText(text).width;
     let widthOfArrEle = textWidth / array.length;
-    let beginTextX = middleWidth - textWidth / 2;
+
+    //prettier-ignore
+    let beginTextX = (middleWidth ) - textWidth / 2;
     let endTextX = middleWidth + textWidth / 2;
-    ctx.lineTo(middleWidth - textWidth / 2, middleHeight);
+    let beginOffset = 10;
+    let endOffset = 10;
+    ctx.lineTo(beginTextX + beginOffset, middleHeight);
     ctx.bezierCurveTo(
       20 + beginTextX,
       100 + middleHeight,
       200 + beginTextX,
       100 + middleHeight,
-      endTextX,
+      endTextX - endOffset,
       middleHeight
     );
     console.log("width of ele", widthOfArrEle);
