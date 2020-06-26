@@ -28340,27 +28340,26 @@ function (_super) {
   }
 
   CanvasComponent.prototype.componentDidMount = function () {
-    console.log("from canvas :", this.props.startX);
     this.updateCanvas();
   };
 
   CanvasComponent.prototype.componentDidUpdate = function () {
-    console.log("from canvas after update:", this.props.startX);
     this.updateCanvas();
   };
 
   CanvasComponent.prototype.updateCanvas = function () {
-    console.log("start x -->", this.props.startX, "start y -->", this.props.startY, "end x -->", this.props.endX, "end y -->", this.props.endY);
     var canvas = this.refs.canvas;
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, 300, 300);
+    var ctx = canvas.getContext("2d"); // ctx.clearRect(0, 0, 300, 300);
+
+    var middleWidth = canvas.width / 2;
+    var middleHeight = canvas.height / 2;
     ctx.beginPath();
-    ctx.moveTo(0, 0); // ctx.lineTo(220, 40);
-
-    ctx.lineTo(this.props.startX - 340, this.props.startY); // ctx.lineTo(100, 100);
-    // ctx.moveTo(this.props.startX, this.props.startY + 50);
-
-    ctx.lineTo(this.props.endX - 300, this.props.endY);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(middleWidth, middleHeight);
+    ctx.font = "italic 32px sans-serif";
+    var text = "hello world from canvas";
+    var textWidth = ctx.measureText(text).width;
+    ctx.fillText(text, middleWidth - textWidth / 2, middleHeight);
     ctx.stroke();
   };
 
@@ -28448,40 +28447,12 @@ function (_super) {
     return _this;
   }
 
-  App.prototype.componentDidMount = function () {
-    var _this = this;
-
-    this.setState({
-      startX: this.startRef.current.getBoundingClientRect().x,
-      startY: this.startRef.current.getBoundingClientRect().y,
-      endX: this.endRef.current.getBoundingClientRect().x,
-      endY: this.endRef.current.getBoundingClientRect().y
-    }, function () {
-      console.log("app start x", _this.state.startX);
-      console.log("app start y", _this.state.startX);
-      console.log("app end x", _this.state.endX);
-      console.log("app end y", _this.state.endY);
-    });
-  };
+  App.prototype.componentDidMount = function () {};
 
   App.prototype.render = function () {
     return React.createElement("main", null, React.createElement("div", {
       id: "foreground"
-    }, React.createElement("p", {
-      className: "array",
-      id: "arrayid"
-    }, React.createElement("span", {
-      ref: this.startRef,
-      id: "start"
-    }, "[1,"), " ", "2, 3, 4, 5, 6, 7, 8, 9,", " ", React.createElement("span", {
-      ref: this.endRef,
-      id: "end"
-    }, "10]"))), React.createElement(canvas_1.default, {
-      startX: this.state.startX,
-      startY: this.state.startY,
-      endX: this.state.endX,
-      endY: this.state.endY
-    }));
+    }), React.createElement(canvas_1.default, null));
   };
 
   return App;
